@@ -10,8 +10,8 @@ void Login(FILE * fp);
 int main(int argc, char const *argv[])
 {
   FILE *fp;
+  char* dataBaseName = "login.txt";
   int choice;
-
 
   start : choice = StartUp();
 
@@ -49,11 +49,14 @@ int StartUp()
 
 void SignUp(FILE * fp)
 {
-
+  fopen(fp, 'a' );
+  
+  fclose(fp);
 }
 
 void Login(FILE * fp)
 {
   fopen(fp, 'r' );
   
+  fclose(fp);
 }
