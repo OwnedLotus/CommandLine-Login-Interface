@@ -4,27 +4,33 @@
 #include "userAccount.h"
 
 int StartUp ();
-void SignUp(FILE * fp);
-void Login(FILE * fp);
+void SignUp(FILE *fp);
+void Login(FILE *fp);
 
 int main(int argc, char const *argv[])
 {
   FILE *fp;
   char* dataBaseName = "login.txt";
   int choice;
+  char read = 'r';
+  char readWrite = "r+";
 
   start : choice = StartUp();
+
+  fp = dataBaseName;
 
   switch (choice)
   {
   case 1:
+    fopen(fp,'w');
     SignUp(fp);
     break;
   case 2:
+    fopen(fp,'r');
     Login(fp);
   case 0:
     printf("Goodbye!");
-    return 1;
+    return 0;
   default:
     printf("Incorrect input enter please enter a given input!\n");
     goto start;
@@ -47,16 +53,14 @@ int StartUp()
   return answer;
 }
 
-void SignUp(FILE * fp)
+void SignUp(FILE *fp)
 {
-  fopen(fp, 'a' );
-  
+
   fclose(fp);
 }
 
-void Login(FILE * fp)
-{
-  fopen(fp, 'r' );
-  
+void Login(FILE *fp)
+{  
+
   fclose(fp);
 }
