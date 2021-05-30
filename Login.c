@@ -10,7 +10,7 @@ void Login(FILE *fp);
 int main(int argc, char const *argv[])
 {
   FILE *fp;
-  char* dataBaseName = "login.txt";
+  char *dataBaseName = "login.txt";
   int choice;
   char read = 'r';
   char readWrite = "r+";
@@ -22,11 +22,11 @@ int main(int argc, char const *argv[])
   switch (choice)
   {
   case 1:
-    fopen(fp,'w');
+    fopen(fp, readWrite);
     SignUp(fp);
     break;
   case 2:
-    fopen(fp,'r');
+    fopen(fp, read);
     Login(fp);
   case 0:
     printf("Goodbye!");
