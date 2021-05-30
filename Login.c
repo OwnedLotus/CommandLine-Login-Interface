@@ -6,6 +6,7 @@
 int StartUp ();
 void SignUp(FILE *fp);
 void Login(FILE *fp);
+void FileClose(FILE *fp);
 
 int main(int argc, char const *argv[])
 {
@@ -55,12 +56,15 @@ int StartUp()
 
 void SignUp(FILE *fp)
 {
-
-  fclose(fp);
+  FileClose(fp);
 }
 
 void Login(FILE *fp)
 {  
+  FileClose(fp);
+}
 
+void FileClose(FILE *fp)
+{
   fclose(fp);
 }
