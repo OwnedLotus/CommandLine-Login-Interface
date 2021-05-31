@@ -26,12 +26,16 @@ int main(int argc, char const *argv[])
     fopen(fp, readWrite);
     SignUp(fp);
     break;
+
   case 2:
     fopen(fp, read);
     Login(fp);
+    break;
+
   case 0:
     printf("Goodbye!");
     return 0;
+
   default:
     printf("Incorrect input enter please enter a given input!\n");
     goto start;
@@ -57,6 +61,11 @@ int StartUp()
 void SignUp(FILE *fp)
 {
   FileClose(fp);
+  userAccount user1;
+
+  printf("Please Enter the Information in the Form!");
+  
+
 }
 
 void Login(FILE *fp)
