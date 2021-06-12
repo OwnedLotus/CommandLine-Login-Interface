@@ -1,0 +1,2 @@
+Hello! this is just a test string
+This is on a new line in the text file!
