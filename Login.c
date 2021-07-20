@@ -18,6 +18,10 @@ void SignUp(FILE *fp);
 void Login(FILE *fp);
 void FileClose(FILE *fp);
 
+char* cmdInput(int argc, char const *argv[]);
+
+void HelpFunct();
+
 int main(int argc, char const *argv[])
 { 
   //creating the file
@@ -103,4 +107,40 @@ void Login(FILE *fp)
 void FileClose(FILE *fp)
 {
   fclose(fp);
+}
+
+//a function that takes the cmdline inputs from the user and makes decisions based on arguments provided
+//If no commands specified, program is to continue on as originally planned.
+//If argument is specified then the program will jump to desired location based on user cmd input
+char* cmdInput(int argc, char const *argv[])
+{
+  switch (argc)
+  {
+  case 0:
+    puts("No input specified: Continuing on with normal operations");
+
+    break;
+  case 1:
+    if (argv[1] == "signup")
+    {
+      puts("Sign up inputted!");
+    }
+    else if (argv[1] == "login")
+    {
+      puts("Login Inputted!");
+    }else if (argv[1] == "help")
+    {
+      HelpFunct();
+    }
+  default:
+    puts("Too many arguments inputted. Program is shutting down");
+    return 0;
+    break;
+  }
+}
+
+void HelpFunct()
+{
+  puts("Helpful text.");
+  return 0;
 }
