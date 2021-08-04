@@ -11,12 +11,13 @@
 #include <string.h>
 #include <stdlib.h>
 //adds specific functionality to the program see "userAccount.h"
-#include "userAccount.h" 
+#include "UserAccount.h" 
 
 int StartUp ();
 void SignUp(FILE *fp);
 void Login(FILE *fp);
 void FileClose(FILE *fp);
+void WriteToFile(UserAccount user);
 
 char* cmdInput(int argc, char const *argv[]);
 
@@ -90,16 +91,108 @@ int StartUp()
 //starts the sign up sequence of the program
 void SignUp(FILE *fp)
 {
-  userAccount user1;
-
+  int i = 0;
+  char ch;
 
   printf("Please Enter the Information in the Form!");
+
+  
+  
+
+  UserAccount user;
+
+  user.id == i;
+
+  printf("Enter the UserName: \n");
+  scanf(" %s", user.username);
+
+  printf("Enter the Password: \n");
+  scanf(" %s", user.password);
+
+  printf("Enter the users First Name: \n");
+  scanf(" %s", user.firstName);
+
+  printf("Enter the users Last Name: \n");
+  scanf(" %s", user.lastName);
+
+  printf("Would you like to save the account");
+  printf("y/n \n");
+  scanf(" %c", &ch);
+
+  if (ch == 'y')
+  {
+    
+  }
+  else if (ch == 'n')
+  {
+    return 0;
+  }
+  else
+  {
+    printf("Bad Input detected");
+  }
+  
   
   FileClose(fp);
 }
+
 //starts the login sequence of the program
 void Login(FILE *fp)
 {  
+  int lines;
+  char ch;
+  char userArray[4][MAXSTRING];
+
+  if (fp == NULL)
+    {
+      puts("File Failed to Open: File may not exist or was inputted incorrectly!");
+      puts("Please Try Again!");
+
+      return 0;
+    }
+    else
+    {      
+      while (ch != EOF)
+      {
+        if (ch == '\n')
+        {
+          lines++;
+        }
+        ch = fgetc(fp);
+      }
+    }
+
+    if(lines <= 4)
+    {
+      rewind(fp);
+
+      for (int i = 0; i < lines; i++)
+      {
+        for (int j = 0; j < MAXSTRING; j++)
+        {
+          while ((ch = fgetchar()) != EOF)
+          {
+            if (ch != '\n')
+            {
+              userArray[i][j] = ch;
+            }
+            else if (ch =='\n')
+            {
+              break;
+            }
+          }            
+        } 
+      }
+    }
+
+    UserAccount user;
+    user.id = 0;
+    user.username = userArray[0];
+    user.password = userArray[1];
+    user.firstName = userArray[2];
+    user.lastName = userArray[3];
+
+
   FileClose(fp);
 }
 
