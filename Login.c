@@ -25,30 +25,25 @@ void HelpFunct();
 
 int main(int argc, char const *argv[])
 { 
-  //creating the file
   FILE *fp;
   
-  //creating the variables
   int choice;
   int i;
-  char read = 'r';
+  char read = "r";
   char readWrite = "r+";
 
-  //creating the strings for the program
   char *dataBaseName = "login.txt";
   char *buffer[MAXSTRING];
   char userName[MAXSTRING];
   char password[MAXSTRING];
 
-  //using GOTO for error prevention this is the menu interface 
-  //for user input and returns the int as the var choice
-  start : choice = StartUp();
+  start:
+  choice = StartUp();
 
   fp = dataBaseName;
 
   fopen(&dataBaseName, readWrite);
 
-  //Interperating user generated actions that progress the program
   switch (choice)
   {
   case 1:
@@ -63,7 +58,6 @@ int main(int argc, char const *argv[])
     printf("Goodbye!");
     return 0;
 
-  //error checker for bad input back to the GOTO "start" menu
   default:
     printf("Incorrect input enter please enter a given input!\n");
     goto start;
@@ -73,12 +67,10 @@ int main(int argc, char const *argv[])
   return 0;
 }
 
-//Starting up the menu to the program
 int StartUp()
 {
   int answer;
 
-  //prompts the user for information on the function
   printf("Welcome!\n");
   printf("If you would like to sign up press 1.\n");
   printf("If you would like to login press 2.\n");
@@ -88,7 +80,6 @@ int StartUp()
   return answer;
 }
 
-//starts the sign up sequence of the program
 void SignUp(FILE *fp)
 {
   int i = 0;
@@ -96,52 +87,52 @@ void SignUp(FILE *fp)
 
   printf("Please Enter the Information in the Form!");
 
-  
-  
-
   UserAccount user;
 
   user.id == i;
 
   printf("Enter the UserName: \n");
-  scanf(" %s", user.username);
+  user.username = fgetc(stdin);
 
   printf("Enter the Password: \n");
-  scanf(" %s", user.password);
+  user.password = fgetc(stdin);
 
   printf("Enter the users First Name: \n");
-  scanf(" %s", user.firstName);
+  user.password = fgetc(stdin);
 
   printf("Enter the users Last Name: \n");
-  scanf(" %s", user.lastName);
+  user.password = fgetc(stdin);
 
-  printf("Would you like to save the account");
+  SAVE_ACCOUNT: 
+  printf("Would you like to save the account: ");
   printf("y/n \n");
-  scanf(" %c", &ch);
+  ch = fgetc(stdin);
 
   if (ch == 'y')
   {
-    
+    puts("User Saved!");
   }
   else if (ch == 'n')
   {
+    puts("Goodbye!");
     return 0;
   }
   else
   {
-    printf("Bad Input detected");
+    printf("Bad Input detected. Please Try again!");
+    goto SAVE_ACCOUNT;
   }
-  
   
   FileClose(fp);
 }
 
-//starts the login sequence of the program
 void Login(FILE *fp)
 {  
   int lines;
   char ch;
   char userArray[4][MAXSTRING];
+
+  char* userNameEnter, passwordEnter;
 
   if (fp == NULL)
     {
@@ -192,11 +183,26 @@ void Login(FILE *fp)
     user.firstName = userArray[2];
     user.lastName = userArray[3];
 
+    puts("Please enter your Username and Password!");
+    printf("Username: ");
+    userNameEnter = fgets(10, MAXSTRING, stdin);
+    printf("\nPassword: ");
+    passwordEnter = fgets(10, MAXSTRING, stdin);
+
+    if (userNameEnter == user.username && passwordEnter == user.password)
+    {
+      puts("Welcome back!"); // Replace this with application call
+    }
+    else
+    {
+      puts("Username or password was not accepted! Please try again!");
+    }
+    
+
 
   FileClose(fp);
 }
 
-//whenever called this closes the file for the program
 void FileClose(FILE *fp)
 {
   fclose(fp);
@@ -221,7 +227,8 @@ char* cmdInput(int argc, char const *argv[])
     else if (argv[1] == "login")
     {
       puts("Login Inputted!");
-    }else if (argv[1] == "help")
+    }
+    else if (argv[1] == "help")
     {
       HelpFunct();
     }
