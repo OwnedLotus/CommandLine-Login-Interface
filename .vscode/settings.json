@@ -1,0 +1,10 @@
+{
+     "cSpell.words": [
+          "fgetchar",
+          "MAXSTRING"
+     ],
+     "files.associations": {
+          "string.h": "c",
+          "stdlib.h": "c"
+     }
+}

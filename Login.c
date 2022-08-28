@@ -8,14 +8,12 @@
 */
 
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-//adds specific functionality to the program see "userAccount.h"
-#include "UserAccount.h" 
+
+#include "UserAccount.h"
 
 int StartUp ();
-void SignUp(FILE *fp);
-void Login(FILE *fp);
+void SignUp(FILE *fp, UserAccount *user);
+void Login(FILE *fp, UserAccount *user);
 void FileClose(FILE *fp);
 void WriteToFile(UserAccount user);
 
@@ -26,43 +24,47 @@ void HelpFunct();
 int main(int argc, char const *argv[])
 { 
   FILE *fp;
+  UserAccount *user = malloc(sizeof(UserAccount) + 1);
   
   int choice;
   int i;
-  char read = "r";
-  char readWrite = "r+";
 
   char *dataBaseName = "login.txt";
-  char *buffer[MAXSTRING];
+  char buffer[MAXSTRING];
   char userName[MAXSTRING];
   char password[MAXSTRING];
 
   start:
   choice = StartUp();
 
-  fp = dataBaseName;
-
-  fopen(&dataBaseName, readWrite);
+  fopen(&fp, "r+");
 
   switch (choice)
   {
-  case 1:
-    SignUp(fp);
-    break;
+    case 1:
+      SignUp(fp, user);
+      break;
 
-  case 2:
-    Login(fp);
-    break;
+    case 2:
+      Login(fp, user);
+      break;
 
-  case 0:
-    printf("Goodbye!");
-    return 0;
+    case 0:
+      printf("Goodbye!");
+      return 0;
 
-  default:
-    printf("Incorrect input enter please enter a given input!\n");
-    goto start;
-    break;
+    default:
+      printf("Incorrect input enter please enter a given input!\n");
+      goto start;
+      break;
+
   }
+
+  free(user->username);
+  free(user->password);
+  free(user->firstName);
+  free(user->lastName);
+  free(user);
 
   return 0;
 }
@@ -80,40 +82,42 @@ int StartUp()
   return answer;
 }
 
-void SignUp(FILE *fp)
+void SignUp(FILE *fp, UserAccount *user)
 {
-  int i = 0;
+  int i = 0; //implement counter for id
   char ch;
 
   printf("Please Enter the Information in the Form!");
 
-  UserAccount user;
-
-  user.id == i;
+  user->id = i + 1;
 
   printf("Enter the UserName: \n");
-  user.username = fgetc(stdin);
+  fgets(user->username = malloc(MAXSTRING + 1), MAXSTRING, stdin);
 
   printf("Enter the Password: \n");
-  user.password = fgetc(stdin);
+  fgets(user->password = malloc(MAXSTRING + 1), MAXSTRING, stdin);
 
   printf("Enter the users First Name: \n");
-  user.password = fgetc(stdin);
+  fgets(user->firstName = malloc(MAXSTRING + 1), MAXSTRING, stdin);
 
   printf("Enter the users Last Name: \n");
-  user.password = fgetc(stdin);
+  fgets(user->lastName = malloc(MAXSTRING + 1), MAXSTRING, stdin);
 
   SAVE_ACCOUNT: 
   printf("Would you like to save the account: ");
-  printf("y/n \n");
+  printf("y / n \n");
   ch = fgetc(stdin);
 
   if (ch == 'y')
   {
+    //TODO!
+
     puts("User Saved!");
   }
   else if (ch == 'n')
   {
+    //TODO!
+
     puts("Goodbye!");
     return 0;
   }
@@ -126,7 +130,8 @@ void SignUp(FILE *fp)
   FileClose(fp);
 }
 
-void Login(FILE *fp)
+//redo method
+void Login(FILE *fp, UserAccount *user)
 {  
   int lines;
   char ch;
@@ -176,20 +181,13 @@ void Login(FILE *fp)
       }
     }
 
-    UserAccount user;
-    user.id = 0;
-    user.username = userArray[0];
-    user.password = userArray[1];
-    user.firstName = userArray[2];
-    user.lastName = userArray[3];
-
     puts("Please enter your Username and Password!");
     printf("Username: ");
     userNameEnter = fgets(10, MAXSTRING, stdin);
     printf("\nPassword: ");
     passwordEnter = fgets(10, MAXSTRING, stdin);
 
-    if (userNameEnter == user.username && passwordEnter == user.password)
+    if (userNameEnter == user->username && passwordEnter == user->password)
     {
       puts("Welcome back!"); // Replace this with application call
     }
