@@ -140,61 +140,61 @@ void Login(FILE *fp, UserAccount *user)
   char* userNameEnter, passwordEnter;
 
   if (fp == NULL)
-    {
-      puts("File Failed to Open: File may not exist or was inputted incorrectly!");
-      puts("Please Try Again!");
+  {
+    puts("File Failed to Open: File may not exist or was inputted incorrectly!");
+    puts("Please Try Again!");
 
-      return 0;
-    }
-    else
+    return 0;
+  }
+  else
+  {
+    while (ch != EOF)
     {
-      while (ch != EOF)
+      if (ch == '\n')
       {
-        if (ch == '\n')
-        {
-          lines++;
-        }
-        ch = fgetc(fp);
+        lines++;
       }
+      ch = fgetc(fp);
     }
+  }
 
-    if(lines <= 4)
+  if(lines <= 4)
+  {
+    rewind(fp);
+
+    for (int i = 0; i < lines; i++)
     {
-      rewind(fp);
-
-      for (int i = 0; i < lines; i++)
+      for (int j = 0; j < MAXSTRING; j++)
       {
-        for (int j = 0; j < MAXSTRING; j++)
+        while ((ch = fgetchar()) != EOF)
         {
-          while ((ch = fgetchar()) != EOF)
+          if (ch != '\n')
           {
-            if (ch != '\n')
-            {
-              userArray[i][j] = ch;
-            }
-            else if (ch =='\n')
-            {
-              break;
-            }
+            userArray[i][j] = ch;
+          }
+          else if (ch =='\n')
+          {
+            break;
           }
         }
       }
     }
+  }
 
-    puts("Please enter your Username and Password!");
-    printf("Username: ");
-    userNameEnter = fgets(10, MAXSTRING, stdin);
-    printf("\nPassword: ");
-    passwordEnter = fgets(10, MAXSTRING, stdin);
+  puts("Please enter your Username and Password!");
+  printf("Username: ");
+  userNameEnter = fgets(10, MAXSTRING, stdin);
+  printf("\nPassword: ");
+  passwordEnter = fgets(10, MAXSTRING, stdin);
 
-    if (userNameEnter == user->username && passwordEnter == user->password)
-    {
-      puts("Welcome back!"); // Replace this with application call
-    }
-    else
-    {
-      puts("Username or password was not accepted! Please try again!");
-    }
+  if (userNameEnter == user->username && passwordEnter == user->password)
+  {
+    puts("Welcome back!"); // Replace this with application call
+  }
+  else
+  {
+    puts("Username or password was not accepted! Please try again!");
+  }
 
   FileClose(fp);
 }
