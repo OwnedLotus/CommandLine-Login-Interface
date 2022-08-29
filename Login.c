@@ -25,7 +25,7 @@ int main(int argc, char const *argv[])
 { 
   FILE *fp;
   UserAccount *user = malloc(sizeof(UserAccount) + 1);
-  
+
   int choice;
   int i;
 
@@ -126,7 +126,7 @@ void SignUp(FILE *fp, UserAccount *user)
     printf("Bad Input detected. Please Try again!");
     goto SAVE_ACCOUNT;
   }
-  
+
   FileClose(fp);
 }
 
@@ -147,7 +147,7 @@ void Login(FILE *fp, UserAccount *user)
       return 0;
     }
     else
-    {      
+    {
       while (ch != EOF)
       {
         if (ch == '\n')
@@ -176,8 +176,8 @@ void Login(FILE *fp, UserAccount *user)
             {
               break;
             }
-          }            
-        } 
+          }
+        }
       }
     }
 
@@ -195,8 +195,6 @@ void Login(FILE *fp, UserAccount *user)
     {
       puts("Username or password was not accepted! Please try again!");
     }
-    
-
 
   FileClose(fp);
 }
