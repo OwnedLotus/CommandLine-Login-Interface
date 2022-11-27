@@ -8,6 +8,7 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "UserAccount.h"
 
@@ -24,7 +25,7 @@ void HelpFunct();
 int main(int argc, char const *argv[])
 { 
   FILE *fp;
-  UserAccount *user = malloc(sizeof(UserAccount) + 1);
+  UserAccount *user = calloc(5, MAXSTRING);
 
   int choice;
   int i;

@@ -14,3 +14,10 @@ typedef struct UserAccount
   char* lastName;
 
 } UserAccount;
+
+
+int i = 5;
+
+int *ptr = &i;
+
+0x
